@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cookie Shop | Get the best offers on Cookie matched to your taste.</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Delius Swash Caps' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Andika' rel='stylesheet'>
+    <link rel="stylesheet" href="~/Content/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.css" integrity="sha512-hwwdtOTYkQwW2sedIsbuP1h0mWeJe/hFOfsvNKpRB3CkRxq8EW7QMheec1Sgd8prYxGm1OM9OZcGW7/GUud5Fw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body style="margin-bottom:200px">
+    <!--Header-->
+    <!--Navigation bar start-->
+    <nav class="navbar fixed-top navbar-expand-sm navbar-dark" style="background-color:rgba(0,0,0,0.5)">
+        <div class="container">
+            <a href="/home/index" class="navbar-brand" style="font-family: 'Delius Swash Caps'">Cookieshop.com</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mynavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mynavbar">
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item "><a href="@Url.Action("Myorder","AddToCart")" class="nav-link"><i class="fa fa-shopping-cart"></i> Go to Cart</a></li>
+                    @if (Convert.ToString(Session["userId"]) != "")
+                    {
+                        <li class="nav-item"><a href="@Url.Action("AllOrders","Home")" class="nav-link">My Orders</a></li>
+                        <li class="nav-item"><a href="@Url.Action("Logout","Account")" class="nav-link"><i class="fa fa-sign-out"></i>Logout</a></li>
+                    }
+                    else
+                    {
+                        <li class="nav-item "><a href="@Url.Action("Login","Account")" class="nav-link"><i class="fa fa-sign-in"></i> Login</a></li>
+                    }
+                </ul>
+
+            </div>
+        </div>
+
+    </nav>
+
+    <!--navigation bar end-->
+    <!--Login trigger Modal-->
+    <div class="modal fade" id="login">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content" style="background-color:rgba(255,255,255,0.95)">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Login</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <form action="@Url.Action("PostLogin","Account")" method="post">
+                        <div class="form-group">
+                            <label for="email">Email address:</label>
+                            <input type="email" class="form-control" name="email" placeholder="Enter email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Password:</label>
+                            <input type="password" class="form-control" id="pwd" name="password" placeholder="Password" required>
+                        </div>
+                        <button type="submit" class="btn btn-secondary btn-block" name="Submit">Login</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Login trigger Model ends-->
+    @RenderBody()
+    <!--footer -->
+    <footer class="footer">
+        <div class="container text-center"><span class="text-muted"><b>Copyright&copy;Cookie Shop | All Rights Reserved | Contact Us:1884-BAKE</b></span></div>
+    </footer>
+
+    <!--footer end-->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    @*<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>*@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.js" integrity="sha512-MqEDqB7me8klOYxXXQlB4LaNf9V9S0+sG1i8LtPOYmHqICuEZ9ZLbyV3qIfADg2UJcLyCm4fawNiFvnYbcBJ1w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+     function AddtoCart(id) {
+
+         $.ajax({
+             url: '@Url.Action("Add","AddToCart")',
+             type: 'POST',
+             data: { Id: id },
+             dataType: "json",
+             //contentType: "application/json; charset=utf-8",
+             success: function (response) {
+                 if (response > 0) {
+                     swal({
+                         title: "All Done",
+                         text: "Successfully added to cart.",
+                         type: "success",
+                         showCancelButton: true,
+                         confirmButtonClass: "btn-success",
+                         confirmButtonText: "Check out!",
+                         cancelButtonText: "Continue Shopping!",
+                         closeOnConfirm: false,
+                         closeOnCancel: true
+                     },
+                         function (isConfirm) {
+                             if (isConfirm) {
+                                 window.location.href = "/AddToCart/MyOrder";
+                             } else {
+                                 //window.location.href = "/Home/Index";
+                             }
+                         });
+                 }
+             },
+             error: function (error) {
+                 console.log(error)
+             }
+         });
+     }
+    </script>
+
+
+
+</body>
+</html>

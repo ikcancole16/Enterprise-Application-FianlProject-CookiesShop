@@ -1,0 +1,43 @@
+﻿@model List<CookiesShop.Models.OrderViewModel>
+@{
+    ViewBag.Title = "Success";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div>
+    <div class="container mt-5 ">
+        <div class="row justify-content-around">
+            <div class="col-md-10 mt-3">
+                <h3 class="text-warning pt-3 title">My Orders</h3>
+                <hr />
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>OrderId</th>
+                            <th>ProductName</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Shipping Address</th>
+                            <th>Order Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            string ord = "ORD" + item.OrderId.ToString();
+                            <tr>
+                                <td>@ord</td>
+                                <td>@item.ProductName</td>
+                                <td>@item.Quantity</td>
+                                <td>@item.Price</td>
+                                <td>@item.ShippingAddress</td>
+                                <td>@item.CreatedAt.ToShortDateString()</td>
+                            </tr>
+                        }
+
+                    </tbody>
+                    </table>
+            </div>
+        </div>
+    </div>
+</div>

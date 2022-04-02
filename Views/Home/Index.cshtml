@@ -1,0 +1,44 @@
+﻿@model List<CookiesShop.Models.Product>
+@{
+    ViewBag.Title = "Home Page";
+}
+<style>
+    .productImage{
+        height:300px;
+    }
+</style>
+<!--Header ends-->
+<div id="content">
+    <div id="bg" class=" ">
+        <div class="container" style="padding-top:150px">
+            <div class="mx-auto p-5 text-white" id="banner_content" style="border-radius: 0.5rem;">
+                <h1>We Sell Happiness :)</h1>
+                <p>Enjoy a month of Cookie with up to 40% off,Updated every Thursday</p>
+                    <a href="/home/index" class="btn btn-warning btn-lg text-white">Shop Now</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="text-center pt-4 h3">
+    * Great Cookie to Give *
+</div>
+<!--menu highlights start-->
+<div class="container pt-3 d-flex">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4  py-2">
+
+            <div class="card">
+                <img src="~/Content/images/@item.Url" alt="" class="img-fluid pb-1 productImage" >
+                <div class="figure-caption text-center">
+                    <h6>@item.ProductName</h6>
+                    <p class="bg-warning">Cake Type: @item.CakeType</p>
+                        <p><a href="javascript:void(0)" onclick="AddtoCart('@item.Id')" name="add" value="add" class="btn btn-warning  text-white"><i class="fa fa-shopping-basket"></i></a> <a href="@Url.Action("ProductDetail",new { Id=item.Id})" name="add" value="add" class="btn btn-warning  text-white"><i class="fa fa-eye"></i></a></p>
+
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<!--menu highlights end-->

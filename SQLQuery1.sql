@@ -1,0 +1,1 @@
+﻿insert into Products values (3,'Choco Chip Cookies',15,'Cookies','Choco CHip',getdate(),'These are the cookies full of choco cips and chocolate filled in.','light brown','w3.jpg')

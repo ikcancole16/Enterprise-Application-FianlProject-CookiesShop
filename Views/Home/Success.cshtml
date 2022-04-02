@@ -1,0 +1,109 @@
+﻿@model List<CookiesShop.Models.OrderViewModel>
+@{
+    ViewBag.Title = "Success";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--Login trigger Model ends-->
+<div class="container-fluid mt-5 pt-5" id="content" style="margin-bottom:200px">
+    <div>
+        @*@if (Model!=null)
+        {
+
+       
+        <table>
+            <tr>
+                <td>
+                    Order Number
+                </td>
+                <td>
+                    @Model.Id
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    First Name
+                </td>
+                <td>
+                    @Model.FirstName
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Last Name
+                </td>
+                <td>
+                    @Model.LastName
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Birthday
+                </td>
+                <td>
+                    @Model.DateOfBirth
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Phone
+                </td>
+                <td>
+                    @Model.Phone
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Product Name
+                </td>
+                <td>
+                    @Model.ProductNo
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Quantity
+                </td>
+                <td>
+                    @Model.Quantity
+                </td>
+            </tr>
+        </table>
+
+        }*@
+    <table class="table table-striped"> 
+        <thead>
+            <tr>
+                <th>OrderId</th>
+                <th>ProductName</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Shipping Address</th>
+                <th>Order Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>@item.OrderId</td>
+                <td>@item.ProductName</td>
+                <td>@item.Quantity</td>
+                <td>@item.Price</td>
+                <td>@item.ShippingAddress</td>
+                <td>@item.CreatedAt.ToShortDateString()</td>
+            </tr>
+            }
+            
+        </tbody>
+        
+    </table>
+    </div>
+    <div class="col-md-8 mx-auto">
+        <div class="jumbotron text-center">
+            <h3>Dear, @Model.FirstOrDefault().FirstName Your order is confirmed. Thank you for shopping with us.</h3><hr>
+            <p>Click <a href="/home/index">here</a> to purchase any other item.</p>
+        </div>
+    </div>
+</div>
+
